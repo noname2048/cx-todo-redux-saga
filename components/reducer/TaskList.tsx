@@ -1,38 +1,25 @@
 "use client";
 
-import { useState } from "react";
+import { TasksContext, TasksDispatchContext } from "@/context/TasksContext";
+import { useContext, useState } from "react";
 import { UserTask } from "@/types/task";
 
-export default function TaskList({
-  tasks,
-  onChangeTask,
-  onDeleteTask,
-}: {
-  tasks: UserTask[];
-  onChangeTask: Function;
-  onDeleteTask: Function;
-}) {
+export default function TaskList() {
+  const tasks = useContext(TasksContext);
   return (
     <ul>
       {tasks.map((task) => (
         <li key={task.id}>
-          <Task task={task} onChange={onChangeTask} onDelete={onDeleteTask} />
+          <Task task={task} />
         </li>
       ))}
     </ul>
   );
 }
 
-function Task({
-  task,
-  onChange,
-  onDelete,
-}: {
-  task: UserTask;
-  onChange: Function;
-  onDelete: Function;
-}) {
+function Task({ task }: { task: UserTask }) {
   const [isEditing, setIsEditing] = useState(false);
+  const dispatch = useContext(TasksDispatchContext);
   let taskContent;
   if (isEditing) {
     taskContent = (
@@ -40,9 +27,12 @@ function Task({
         <input
           value={task.text}
           onChange={(e) => {
-            onChange({
-              ...task,
-              text: e.target.value,
+            dispatch({
+              type: "changed",
+              task: {
+                ...task,
+                text: e.target.value,
+              },
             });
           }}
         />
@@ -73,16 +63,24 @@ function Task({
         type="checkbox"
         checked={task.done}
         onChange={(e) => {
-          onChange({
-            ...task,
-            done: e.target.checked,
+          dispatch({
+            type: "changed",
+            task: {
+              ...task,
+              done: e.target.checked,
+            },
           });
         }}
       />
       {taskContent}
       <button
         className="border m-1 p-1 rounded"
-        onClick={() => onDelete(task.id)}
+        onClick={() =>
+          dispatch({
+            type: "deleted",
+            id: task.id,
+          })
+        }
       >
         Delete
       </button>

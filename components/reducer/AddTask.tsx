@@ -1,9 +1,12 @@
 "use client";
 
-import { useState } from "react";
+import { TasksDispatchContext } from "@/context/TasksContext";
+import { useContext, useState } from "react";
 
-export default function AddTask({ onAddTask }: { onAddTask: Function }) {
+export default function AddTask() {
   const [text, setText] = useState("");
+  const dispatch = useContext(TasksDispatchContext);
+
   return (
     <>
       <input
@@ -16,7 +19,12 @@ export default function AddTask({ onAddTask }: { onAddTask: Function }) {
         className="border px-1 py-0.5 rounded"
         onClick={() => {
           setText("");
-          onAddTask(text);
+          dispatch &&
+            dispatch({
+              type: "added",
+              id: nextId++,
+              text: text,
+            });
         }}
       >
         Add
@@ -24,3 +32,5 @@ export default function AddTask({ onAddTask }: { onAddTask: Function }) {
     </>
   );
 }
+
+let nextId = 3;

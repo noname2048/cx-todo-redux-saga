@@ -1,5 +1,6 @@
 "use client";
 
+import { TasksContext, TasksDispatchContext } from "@/context/TasksContext";
 import { UserTask } from "@/types/task";
 import { useReducer } from "react";
 import AddTask from "@/components/reducer/AddTask";
@@ -31,15 +32,19 @@ export default function Page() {
   }
 
   return (
-    <>
-      <h1>Day off in Kyoto</h1>
-      <AddTask onAddTask={handleAddTask} />
-      <TaskList
-        tasks={tasks}
-        onChangeTask={handleChangeTask}
-        onDeleteTask={handleDeleteTask}
-      />
-    </>
+    <TasksContext.Provider value={tasks}>
+      <TasksDispatchContext.Provider value={dispatch}>
+        <h1>Day off in Kyoto</h1>
+        <AddTask />
+        <TaskList />
+        {/*<AddTask onAddTask={handleAddTask} />*/}
+        {/*<TaskList*/}
+        {/*  tasks={tasks}*/}
+        {/*  onChangeTask={handleChangeTask}*/}
+        {/*  onDeleteTask={handleDeleteTask}*/}
+        {/*/>*/}
+      </TasksDispatchContext.Provider>
+    </TasksContext.Provider>
   );
 }
 
