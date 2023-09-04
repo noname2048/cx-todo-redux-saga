@@ -16,6 +16,14 @@ export function TasksProvider({ children }: { children?: ReactNode }) {
   );
 }
 
+export function useTasks() {
+  return useContext(TasksContext);
+}
+
+export function useTasksDispatch() {
+  return useContext(TasksDispatchContext);
+}
+
 type ActionType =
   | { type: "added"; id: number; text: string }
   | { type: "changed"; task: UserTask }

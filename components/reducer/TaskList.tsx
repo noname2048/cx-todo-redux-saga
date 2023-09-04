@@ -1,11 +1,11 @@
 "use client";
 
-import { TasksContext, TasksDispatchContext } from "@/context/TasksContext";
-import { useContext, useState } from "react";
+import { useTasks, useTasksDispatch } from "@/context/TasksContext";
 import { UserTask } from "@/types/task";
+import { useState } from "react";
 
 export default function TaskList() {
-  const tasks = useContext(TasksContext);
+  const tasks = useTasks();
   return (
     <ul>
       {tasks.map((task) => (
@@ -19,7 +19,7 @@ export default function TaskList() {
 
 function Task({ task }: { task: UserTask }) {
   const [isEditing, setIsEditing] = useState(false);
-  const dispatch = useContext(TasksDispatchContext);
+  const dispatch = useTasksDispatch();
   let taskContent;
   if (isEditing) {
     taskContent = (
