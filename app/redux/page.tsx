@@ -1,6 +1,6 @@
 "use client";
 
-import { useAppSelector, useAppDispatch } from "@/hooks/store";
+import { useAppSelector, useAppDispatch } from "@/store/hooks";
 import { decrement, increment } from "@/components/counter/counterSlice";
 import { store } from "@/store/store";
 import { Provider } from "react-redux";
@@ -19,7 +19,7 @@ function Counter() {
   return (
     <div>
       <button
-        className="border p-1 m-2 rounded border-blue-400"
+        className="m-2 rounded border border-blue-400 p-1"
         aria-label="Increment value"
         onClick={() => dispatch(increment())}
       >
@@ -27,7 +27,7 @@ function Counter() {
       </button>
       <span className="m-2">{count}</span>
       <button
-        className="border p-1 m-2 rounded border-red-400"
+        className="m-2 rounded border border-red-400 p-1"
         aria-label="Decrement value"
         onClick={() => dispatch(decrement())}
       >
