@@ -1,7 +1,7 @@
 "use client";
 
 import { useAppDispatch, useAppSelector } from "@/store/hooks";
-import { decrement, increment } from "@/store/reducer/async-counter";
+import { incrementAsync, decrementAsync } from "@/store/reducer/async-counter";
 import { store } from "@/store/store";
 import { Provider } from "react-redux";
 
@@ -23,7 +23,7 @@ function AsyncCounter() {
         <button
           className="m-2 rounded-md border border-blue-400 p-1"
           onClick={() => {
-            dispatch(increment());
+            dispatch(incrementAsync());
           }}
         >
           Up
@@ -32,7 +32,7 @@ function AsyncCounter() {
         <button
           className="m-2 rounded-md border border-blue-400 p-1"
           onClick={() => {
-            dispatch(decrement());
+            dispatch(decrementAsync());
           }}
         >
           Down

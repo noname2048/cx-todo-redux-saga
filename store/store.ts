@@ -1,7 +1,7 @@
-import { configureStore } from "@reduxjs/toolkit";
 import counterReducer from "@/components/counter/counterSlice";
+import { logger } from "@/store/middleware/logger";
 import asyncCounterReducer from "@/store/reducer/async-counter";
-import { LoggerReduxMiddleware } from "@/store/middleware/logger";
+import { configureStore } from "@reduxjs/toolkit";
 
 export const store = configureStore({
   reducer: {
@@ -9,7 +9,14 @@ export const store = configureStore({
     asyncCounter: asyncCounterReducer,
   },
   middleware: (getDefaultMiddleware) =>
-    getDefaultMiddleware().concat(LoggerReduxMiddleware),
+    getDefaultMiddleware({
+      thunk: {
+        extraArgument: {
+          date: "2023-01-01",
+          answer: 42,
+        },
+      },
+    }).concat(logger),
 });
 
 export type RootState = ReturnType<typeof store.getState>;

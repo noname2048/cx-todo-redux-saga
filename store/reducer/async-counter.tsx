@@ -22,9 +22,15 @@ export const asyncCounterSlice = createSlice({
   },
 });
 
-export const incrementAsync = (dispatch: any) => {
+export const incrementAsync = () => (dispatch: any) => {
   setTimeout(() => {
     dispatch(increment());
+  }, 1000);
+};
+
+export const decrementAsync = () => (dispatch: any) => {
+  setTimeout(() => {
+    dispatch(decrement());
   }, 1000);
 };
 
