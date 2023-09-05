@@ -2,7 +2,7 @@
 
 import { useAppSelector, useAppDispatch } from "@/hooks/store";
 import { decrement, increment } from "@/components/counter/counterSlice";
-import { store } from "@/store";
+import { store } from "@/store/store";
 import { Provider } from "react-redux";
 
 export default function Page() {
