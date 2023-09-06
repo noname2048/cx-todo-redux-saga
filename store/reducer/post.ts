@@ -39,3 +39,5 @@ export default function postsReducer(state = initialState, action: any) {
       return state;
   }
 }
+
+export { getPosts, getPost };

@@ -18,6 +18,8 @@ const posts = [
   },
 ];
 
+export { posts };
+
 export const getPosts = async () => {
   await sleep(500);
   return posts;
